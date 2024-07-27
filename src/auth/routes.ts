@@ -1,0 +1,1 @@
+import { Router } from 'express';import {fetchAllUsersController, registerController} from './controllers';const router = Router();router.post('/register', registerController);router.get('/users', fetchAllUsersController);export default router;
