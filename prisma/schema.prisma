@@ -14,6 +14,7 @@ model User {
   lastname    String
   status      UserStatus
   birthDate   DateTime
+  password    String
   phoneNumber String     @unique
 }
 
