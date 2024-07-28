@@ -1,1 +1,1 @@
-import express from "express";import authRoutes from "./auth/routes";export const initRoutes = (app: express.Express) => {	app.use('/auth', authRoutes);};
+import express from "express";import authRoutes from "./auth/routes";import dashboardRoutes from "./dashboard/routes";export const initRoutes = (app: express.Express) => {	app.use('/auth', authRoutes);	app.use('/dashboard', dashboardRoutes);};
