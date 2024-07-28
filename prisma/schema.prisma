@@ -8,7 +8,19 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id          Int        @id @default(autoincrement())
+  email       String     @unique
+  firstname   String
+  lastname    String
+  status      UserStatus
+  birthDate   DateTime
+  password    String
+  phoneNumber String     @unique
+}
+
+enum UserStatus {
+  MEMBER
+  SUSPENDED
+  BANNED
+  ADMIN
 }
