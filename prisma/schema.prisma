@@ -8,19 +8,115 @@ datasource db {
 }
 
 model User {
-  id          Int        @id @default(autoincrement())
-  email       String     @unique
-  firstname   String
-  lastname    String
-  status      UserStatus
-  birthDate   DateTime
-  password    String
-  phoneNumber String     @unique
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  firstname    String
+  lastname     String
+  status       UserStatus
+  birthDate    DateTime
+  password     String
+  phoneNumber  String        @unique
+  locations    Location[]
+  reservations Reservation[]
+}
+
+model Location {
+  id                    Int                @id @default(autoincrement())
+  street                String
+  country               String
+  conciergeryType       ConciergeryType
+  houseType             HouseType
+  locationType          LocationType
+  numberOfBedroom       Int
+  maximumNumberOfPeople Int
+  surfaceM2             Float
+  price                 Float
+  user                  User               @relation(fields: [userId], references: [id])
+  userId                Int
+  reservations          Reservation[]
+  documents             LocationDocument[]
+}
+
+model Reservation {
+  id             Int                   @id @default(autoincrement())
+  startDate      DateTime
+  endDate        DateTime
+  numberOfPerson Int
+  user           User                  @relation(fields: [userId], references: [id])
+  userId         Int
+  location       Location              @relation(fields: [locationId], references: [id])
+  locationId     Int
+  services       Service[]
+  documents      ReservationDocument[]
+}
+
+model LocationDocument {
+  id         Int       @id @default(autoincrement())
+  fileName   String
+  fileType   FileType
+  fileUrl    String
+  location   Location? @relation(fields: [locationId], references: [id])
+  locationId Int?
+}
+
+model ReservationDocument {
+  id            Int          @id @default(autoincrement())
+  fileName      String
+  fileType      FileType
+  fileUrl       String
+  reservation   Reservation? @relation(fields: [reservationId], references: [id])
+  reservationId Int?
+}
+
+model Service {
+  id             Int            @id @default(autoincrement())
+  prestationType PrestationType
+  price          Float
+  reservation    Reservation    @relation(fields: [reservationId], references: [id])
+  reservationId  Int
 }
 
 enum UserStatus {
-  MEMBER
+  BAILLEUR_GRATUIT
+  BAILLEUR_PREMIUM
+  CLIENT_GRATUIT
+  CLIENT_BAGPACKER
+  CLIENT_EXPLOROR
   SUSPENDED
   BANNED
   ADMIN
+}
+
+enum ConciergeryType {
+  ALL_IN_ONE
+  NO_PRESTATION
+  MAINTENANCE_ONLY
+  PROMOTIONAL_ONLY
+}
+
+enum HouseType {
+  OLD_HOUSE
+  APPARTMENT
+  SECONDARY_RESIDENCE
+  PRIMARY_RESIDENCE
+}
+
+enum LocationType {
+  EMPTY_RENTAL
+  FURNISHED_RENTAL
+  CAVATION_RENTAL
+}
+
+enum FileType {
+  IMAGE
+  PDF
+}
+
+enum PrestationType {
+  WELCOME
+  TRADITIONAL_FOOD
+  LAUNDRY
+  RESTAURANT
+  AEROPORT
+  TAXI
 }

@@ -1,0 +1,1 @@
+import { Router } from 'express';import { createLocationController } from './controllers';import { isAuthenticated } from "../auth/middleware";const locationRouter = Router();locationRouter.post('/', isAuthenticated, createLocationController);export default locationRouter;
