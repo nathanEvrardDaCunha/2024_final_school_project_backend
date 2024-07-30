@@ -16,7 +16,45 @@ model User {
   birthDate   DateTime
   password    String
   phoneNumber String     @unique
-  isActive    Boolean    @default(true)
+  locations   Location[]
+}
+
+model Location {
+  id                Int              @id @default(autoincrement())
+  surfaceM2         Float
+  numberOfBed       Int
+  maxNumberOfPerson Int
+  country           String
+  street            String
+  locationType      LocationType
+  locationGoodType  LocationGoodType
+  pricePerNight     Float
+  locationStatus    LocationStatus
+  title             String
+  description       String
+  user              User             @relation(fields: [userId], references: [id])
+  userId            Int
+  documents         Document[]
+  perks             Perk[]
+}
+
+model Document {
+  id             Int            @id @default(autoincrement())
+  file           Bytes
+  filename       String
+  documentType   DocumentType
+  documentStatus DocumentStatus
+  location       Location       @relation(fields: [locationId], references: [id])
+  locationId     Int
+}
+
+model Perk {
+  id         Int        @id @default(autoincrement())
+  perkStatus PerkStatus
+  perkName   String
+  perkType   PerkType
+  location   Location   @relation(fields: [locationId], references: [id])
+  locationId Int
 }
 
 enum UserStatus {
@@ -27,4 +65,57 @@ enum UserStatus {
   EXPLORATOR
   SUSPENDED
   BANNED
+}
+
+enum LocationType {
+  APARTMENT
+  HOUSE
+  VILLA
+  CABIN
+  STUDIO
+  LOFT
+}
+
+enum LocationGoodType {
+  ENTIRE_PLACE
+  PRIVATE_ROOM
+  SHARED_ROOM
+}
+
+enum LocationStatus {
+  SUSPENDED
+  PAYED
+  PUBLISHED
+}
+
+enum DocumentType {
+  PAPER_ASSET
+  IMAGES
+  FOLDER
+}
+
+enum DocumentStatus {
+  SUSPENDED
+  AVAILABLE
+}
+
+enum PerkStatus {
+  SUSPENDED
+  AVAILABLE
+}
+
+enum PerkType {
+  OTHERS
+  KITCHEN
+  BATHROOM
+  WASHING_MACHINE
+  WIFI
+  AIR_CONDITIONING
+  HOT_WATER
+  SMOKE_DETECTOR
+  HEATING
+  PARKING
+  TELEVISION
+  WORKSPACE
+  SWIMMING_POOL
 }
