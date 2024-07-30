@@ -16,11 +16,15 @@ model User {
   birthDate   DateTime
   password    String
   phoneNumber String     @unique
+  isActive    Boolean    @default(true)
 }
 
 enum UserStatus {
-  MEMBER
+  ADMIN
+  RENTER
+  FREE
+  BAGPACKER
+  EXPLORATOR
   SUSPENDED
   BANNED
-  ADMIN
 }
