@@ -86,6 +86,7 @@ enum LocationStatus {
   SUSPENDED
   PAYED
   PUBLISHED
+  BEFORE_PAYMENT
 }
 
 enum DocumentType {
