@@ -84,9 +84,10 @@ enum LocationGoodType {
 
 enum LocationStatus {
   SUSPENDED
-  PAYED
   PUBLISHED
   BEFORE_PAYMENT
+  BEFORE_ASSET_PAPER
+  BEFORE_PUBLISHING
 }
 
 enum DocumentType {
