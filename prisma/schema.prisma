@@ -8,15 +8,16 @@ datasource db {
 }
 
 model User {
-  id          Int        @id @default(autoincrement())
-  email       String     @unique
-  firstname   String
-  lastname    String
-  status      UserStatus
-  birthDate   DateTime
-  password    String
-  phoneNumber String     @unique
-  locations   Location[]
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  firstname    String
+  lastname     String
+  status       UserStatus
+  birthDate    DateTime
+  password     String
+  phoneNumber  String        @unique
+  locations    Location[]
+  reservations Reservation[]
 }
 
 model Location {
@@ -36,6 +37,7 @@ model Location {
   userId            Int
   documents         Document[]
   perks             Perk[]
+  reservations      Reservation[]
 }
 
 model Document {
@@ -55,6 +57,19 @@ model Perk {
   perkType   PerkType
   location   Location   @relation(fields: [locationId], references: [id])
   locationId Int
+}
+
+model Reservation {
+  id             Int      @id @default(autoincrement())
+  numberOfPeople Int
+  numberOfNights Int
+  startDate      DateTime
+  endDate        DateTime
+  isForRentor    Boolean
+  user           User     @relation(fields: [userId], references: [id])
+  userId         Int
+  location       Location @relation(fields: [locationId], references: [id])
+  locationId     Int
 }
 
 enum UserStatus {
