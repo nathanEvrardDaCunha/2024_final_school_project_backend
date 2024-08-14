@@ -60,17 +60,26 @@ model Perk {
 }
 
 model Reservation {
-  id                    Int      @id @default(autoincrement())
+  id                    Int       @id @default(autoincrement())
   numberOfPeople        Int
   numberOfNights        Int
   startDate             DateTime
   endDate               DateTime
   isForRentor           Boolean
-  user                  User     @relation(fields: [userId], references: [id])
+  user                  User      @relation(fields: [userId], references: [id])
   userId                Int
-  location              Location @relation(fields: [locationId], references: [id])
+  location              Location  @relation(fields: [locationId], references: [id])
   locationId            Int
   stripePaymentIntentId String?
+  services              Service[]
+}
+
+model Service {
+  id            Int          @id @default(autoincrement())
+  name          ServiceName
+  price         ServicePrice
+  reservation   Reservation  @relation(fields: [reservationId], references: [id])
+  reservationId Int
 }
 
 enum UserStatus {
@@ -142,4 +151,50 @@ enum PerkType {
   TELEVISION
   WORKSPACE
   SWIMMING_POOL
+}
+
+enum ServiceName {
+  CHECK_IN_CHECK_OUT
+  LUGGAGE_STORAGE
+  AIRPORT_TRANSFER
+  LOCAL_TOUR_GUIDE
+  MEAL_DELIVERY
+  HOUSEKEEPING
+  LAUNDRY_SERVICE
+  BIKE_RENTAL
+  CHILDCARE
+  PET_SITTING
+  PROPERTY_PHOTOGRAPHY
+  LISTING_OPTIMIZATION
+  PRICE_MANAGEMENT
+  GUEST_SCREENING
+  MAINTENANCE_COORDINATION
+  DEEP_CLEANING
+  TAX_PREPARATION
+  INSURANCE_MANAGEMENT
+  LEGAL_CONSULTATION
+  MARKETING_BOOST
+}
+
+enum ServicePrice {
+  PRICE_20
+  PRICE_30
+  PRICE_40
+  PRICE_50
+  PRICE_60
+  PRICE_75
+  PRICE_80
+  PRICE_100
+  PRICE_120
+  PRICE_150
+  PRICE_200
+  PRICE_250
+  PRICE_300
+  PRICE_350
+  PRICE_400
+  PRICE_450
+  PRICE_500
+  PRICE_600
+  PRICE_750
+  PRICE_1000
 }
