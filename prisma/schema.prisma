@@ -8,16 +8,17 @@ datasource db {
 }
 
 model User {
-  id           Int           @id @default(autoincrement())
-  email        String        @unique
-  firstname    String
-  lastname     String
-  status       UserStatus
-  birthDate    DateTime
-  password     String
-  phoneNumber  String        @unique
-  locations    Location[]
-  reservations Reservation[]
+  id              Int           @id @default(autoincrement())
+  email           String        @unique
+  firstname       String
+  lastname        String
+  status          UserStatus
+  birthDate       DateTime
+  password        String
+  phoneNumber     String        @unique
+  locations       Location[]
+  reservations    Reservation[]
+  freeServiceUsed Boolean       @default(false)
 }
 
 model Location {
@@ -197,4 +198,5 @@ enum ServicePrice {
   PRICE_600
   PRICE_750
   PRICE_1000
+  PRICE_O
 }
