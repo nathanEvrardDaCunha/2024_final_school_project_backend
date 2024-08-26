@@ -39,6 +39,7 @@ model Location {
   documents         Document[]
   perks             Perk[]
   reservations      Reservation[]
+  avis              Avis[]
 }
 
 model Document {
@@ -81,6 +82,18 @@ model Service {
   price         ServicePrice
   reservation   Reservation  @relation(fields: [reservationId], references: [id])
   reservationId Int
+  avis          Avis[]
+}
+
+model Avis {
+  id            Int       @id @default(autoincrement())
+  reactivity    Int
+  disponibility Int
+  quality       Int
+  location      Location? @relation(fields: [locationId], references: [id])
+  locationId    Int?
+  service       Service?  @relation(fields: [serviceId], references: [id])
+  serviceId     Int?
 }
 
 enum UserStatus {
