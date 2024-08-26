@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.17.0",
+    "@react-pdf/renderer": "^3.4.4",
     "@stripe/stripe-js": "^4.1.0",
     "@types/cors": "^2.8.17",
     "@types/jsonwebtoken": "^9.0.6",
